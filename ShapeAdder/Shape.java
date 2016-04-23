@@ -15,10 +15,10 @@ import java.awt.geom.Point2D;
  */
 public abstract class Shape
 {
-    private double radius;
-    private int centerX;
-    private int centerY;
-    private Point2D.Double trueCenter;
+    public double radius;
+    public int centerX;
+    public int centerY;
+    public Point2D.Double trueCenter;
     Color currentColor;
     //Note that we are making a square, so both width and height are the same.
     public Shape(Point2D.Double center,double radius, Color color)

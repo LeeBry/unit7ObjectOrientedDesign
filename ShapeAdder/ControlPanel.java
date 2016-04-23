@@ -1,9 +1,6 @@
-import javax.swing.JPanel;
+import javax.swing.*; //JPanel, JLabel, JButton
 import java.awt.*;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;// ActionListener, ActionEvent
 import java.awt.BorderLayout;
 /**
  * ControlPanel extends JPanel.
@@ -50,8 +47,7 @@ public class ControlPanel  extends JPanel
        colorPanel.setBackground(currentColor);
        this.add(pickColor);
        this.add(colorPanel);
-       
-       
+       // Adding Listeners 
        ClickListener listener= new ClickListener();
        squareButton.addActionListener(listener);
        circleButton.addActionListener(listener);

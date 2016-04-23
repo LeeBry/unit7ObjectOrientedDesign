@@ -26,19 +26,14 @@ public class DrawingEditor extends JFrame
   */
   public DrawingEditor()
   { 
-  
      DrawingPanel canvas= new DrawingPanel();
      ControlPanel controls= new ControlPanel(canvas);
      BorderLayout layout= new BorderLayout();
-     
      //making the objects
-     
      this.setSize(WIDTH,HEIGHT);
      this.add(controls, layout.SOUTH);
      this.add(canvas, layout.CENTER);
      // adding the objects to the canvas
-
-    
      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      this.setVisible(true);
      //things needed to make the window

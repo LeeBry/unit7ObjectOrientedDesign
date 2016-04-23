@@ -36,8 +36,6 @@ public class DrawingPanel extends JPanel
     Point2D.Double center;
     public DrawingPanel()
     {
-        Square squareShape= new Square(center,width,chosenColor);
-        Circle circleShape= new Circle(center,width,chosenColor);
         ArrayList<Shape> shapeList= new ArrayList<Shape>();
         Color chosenColor=new Color(0,0,0);
         MousePressListener mListener= new MousePressListener();
@@ -80,9 +78,11 @@ public class DrawingPanel extends JPanel
     {
         this.choice=1;
         chosenColor = currentColor;
-        System.out.println("In addCircle");
-        //shapeList.add(circleShape);
-        //this.nextFrame();
+        System.out.println("In addCircle with color: "+chosenColor);
+         
+        Circle circleShape= new Circle(center,width,chosenColor);
+        shapeList.add(circleShape);
+        this.nextFrame();
     }
 
     /**
@@ -95,8 +95,10 @@ public class DrawingPanel extends JPanel
     {
         this.choice=2;
         chosenColor = currentColor;
-        //shapeList.add(squareShape);
-        System.out.println("In addSquare");
+        System.out.println("In addSquare with color: "+chosenColor+":"+center+":");
+        
+        Square squareShape= new Square(center,width,chosenColor);
+        shapeList.add(squareShape);
         repaint();
 
     }
@@ -110,6 +112,7 @@ public class DrawingPanel extends JPanel
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.drawOval(positionX, positionY, 60, 60);
+        
         if (this.choice==1)
         {
             circleShape.draw(g2);
@@ -129,7 +132,6 @@ public class DrawingPanel extends JPanel
     {
         // request that the Java Runtime repaints this component by invoking its paintComponent method
         this.repaint();
-        System.out.println("In nextFrame");
     }
     public class MousePressListener implements MouseListener, MouseMotionListener, KeyListener
     {
