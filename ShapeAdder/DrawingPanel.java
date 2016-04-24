@@ -2,6 +2,7 @@ import java.awt.event.*; // this imports the MouseEvent, MouseListener, KeyListe
 import java.awt.*;// Color, Dimension, Graphics2D, Graphics
 import java.util.ArrayList;
 import java.awt.geom.Point2D;
+import java.util.Random;
 import javax.swing.*; //JColorChooser, Jcomponent, JPanel
 /**
  * This is where most of the work is done. 
@@ -34,13 +35,18 @@ public class DrawingPanel extends JPanel
     int positionY;
     //
     Point2D.Double center;
+    Random random;
     public DrawingPanel()
     {
-        ArrayList<Shape> shapeList= new ArrayList<Shape>();
+        Square squareShape= new Square(center,width,chosenColor);
+        Circle circleShape= new Circle(center,width,chosenColor);
+        this.shapeList= new ArrayList<Shape>();
+        
         Color chosenColor=new Color(0,0,0);
         MousePressListener mListener= new MousePressListener();
         this.setBackground(Color.WHITE);
         this.addMouseListener(mListener);
+        this.random= new Random();
 
     }
 
@@ -76,13 +82,12 @@ public class DrawingPanel extends JPanel
      */
     public void addCircle(Color currentColor)
     {
-        this.choice=1;
         chosenColor = currentColor;
-        System.out.println("In addCircle with color: "+chosenColor);
-         
-        Circle circleShape= new Circle(center,width,chosenColor);
-        shapeList.add(circleShape);
-        this.nextFrame();
+        System.out.println("In addCircle");
+        Point2D.Double curCent = new Point2D.Double(positionX, positionY);
+        Circle addCircle= new Circle(curCent,60,chosenColor);
+        this.shapeList.add(addCircle);
+        System.out.println("Size of shapeList:" + shapeList.size());
     }
 
     /**
@@ -93,14 +98,11 @@ public class DrawingPanel extends JPanel
      */
     public void addSquare(Color currentColor)
     {
-        this.choice=2;
         chosenColor = currentColor;
-        System.out.println("In addSquare with color: "+chosenColor+":"+center+":");
-        
-        Square squareShape= new Square(center,width,chosenColor);
-        shapeList.add(squareShape);
-        repaint();
-
+        Point2D.Double curCent = new Point2D.Double(positionX, positionY);
+        Square addSquare = new Square(curCent,60,chosenColor);
+        shapeList.add(addSquare);
+       
     }
 
     /**
@@ -111,17 +113,14 @@ public class DrawingPanel extends JPanel
     {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawOval(positionX, positionY, 60, 60);
+        //g2.drawOval(positionX, positionY, 60, 60); //Testing
         
-        if (this.choice==1)
-        {
-            circleShape.draw(g2);
-            System.out.println("Circle");
-        }
-        else if (this.choice==2)
-        {
-            squareShape.draw(g2, chosenColor);
-            System.out.println("Square");
+        for(Shape cur : shapeList) {
+        	if (cur instanceof Circle) {
+        		((Circle)cur).draw(g2);
+        	}else {
+        		((Square)cur).draw(g2,chosenColor);
+        	}
         }
     }
 
@@ -141,7 +140,7 @@ public class DrawingPanel extends JPanel
             Point2D.Double center = new Point2D.Double( positionX, positionY );
             repaint();
             System.out.println(center);
-            //Triangle.setPoints(x,y);
+           
         }
 
         public void mouseReleased(MouseEvent event){}
@@ -150,11 +149,11 @@ public class DrawingPanel extends JPanel
         public void mouseExited(MouseEvent event){}
         public void mouseMoved( MouseEvent event){}
         public void mouseDragged(MouseEvent event) {
-            // will use
+            // will use for extension
         }
 
         public void keyPressed(KeyEvent event){
-            // will use
+            // will use for extension
         }
 
         public void keyReleased(KeyEvent event){}
